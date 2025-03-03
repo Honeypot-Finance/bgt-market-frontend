@@ -4,9 +4,6 @@ import { Tab, Tabs } from "@nextui-org/react";
 import { observer } from "mobx-react-lite";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-import { useAccount } from "wagmi";
-import { MyLaunches } from "./MyLaunches";
-import ParticipatedLaunches from "./ParticipatedLaunches";
 import { portfolio } from "@/services/portfolio";
 import {
   getLiquidatorDatas,
@@ -70,7 +67,7 @@ export const Profile = observer(() => {
               </div>
             </CardContainer>
 
-            <Tabs
+            {/* <Tabs
               aria-label="Options"
               classNames={{
                 base: "relative w-full",
@@ -105,7 +102,7 @@ export const Profile = observer(() => {
               >
                 <ParticipatedLaunches />
               </Tab>
-            </Tabs>
+            </Tabs> */}
           </div>
         )}
       </div>

@@ -32,10 +32,13 @@ export type Scalars = {
 
 export type Account = {
   __typename?: 'Account';
+  OrderFilled?: Maybe<Array<OrderFilled>>;
+  OrderPosted?: Maybe<Array<OrderPosted>>;
   holder: Array<HoldingToken>;
   holdingPoolCount: Scalars['BigInt']['output'];
   id: Scalars['ID']['output'];
   memeTokenHoldingCount: Scalars['BigInt']['output'];
+  ordrs?: Maybe<Array<Order>>;
   participant: Array<Participant>;
   participateCount: Scalars['BigInt']['output'];
   platformTxCount: Scalars['BigInt']['output'];
@@ -47,12 +50,39 @@ export type Account = {
 };
 
 
+export type AccountOrderFilledArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<OrderFilled_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<OrderFilled_Filter>;
+};
+
+
+export type AccountOrderPostedArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<OrderPosted_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<OrderPosted_Filter>;
+};
+
+
 export type AccountHolderArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<HoldingToken_OrderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<HoldingToken_Filter>;
+};
+
+
+export type AccountOrdrsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Order_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<Order_Filter>;
 };
 
 
@@ -83,6 +113,8 @@ export type AccountVaultSharesArgs = {
 };
 
 export type Account_Filter = {
+  OrderFilled_?: InputMaybe<OrderFilled_Filter>;
+  OrderPosted_?: InputMaybe<OrderPosted_Filter>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   and?: InputMaybe<Array<InputMaybe<Account_Filter>>>;
@@ -112,6 +144,7 @@ export type Account_Filter = {
   memeTokenHoldingCount_not?: InputMaybe<Scalars['BigInt']['input']>;
   memeTokenHoldingCount_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   or?: InputMaybe<Array<InputMaybe<Account_Filter>>>;
+  ordrs_?: InputMaybe<Order_Filter>;
   participant_?: InputMaybe<Participant_Filter>;
   participateCount?: InputMaybe<Scalars['BigInt']['input']>;
   participateCount_gt?: InputMaybe<Scalars['BigInt']['input']>;
@@ -158,10 +191,13 @@ export type Account_Filter = {
 };
 
 export enum Account_OrderBy {
+  OrderFilled = 'OrderFilled',
+  OrderPosted = 'OrderPosted',
   Holder = 'holder',
   HoldingPoolCount = 'holdingPoolCount',
   Id = 'id',
   MemeTokenHoldingCount = 'memeTokenHoldingCount',
+  Ordrs = 'ordrs',
   Participant = 'participant',
   ParticipateCount = 'participateCount',
   PlatformTxCount = 'platformTxCount',
@@ -3419,10 +3455,323 @@ export enum Mint_OrderBy {
   TransactionType = 'transaction__type'
 }
 
+export type Order = {
+  __typename?: 'Order';
+  balance: Scalars['BigInt']['output'];
+  dealer: Account;
+  height: Scalars['BigInt']['output'];
+  id: Scalars['ID']['output'];
+  orderType: OrderType;
+  price: Scalars['BigInt']['output'];
+  spentBalance: Scalars['BigInt']['output'];
+  status: OrderStatus;
+  vaultAddress: Scalars['String']['output'];
+};
+
 /** Defines the order direction, either ascending or descending */
 export enum OrderDirection {
   Asc = 'asc',
   Desc = 'desc'
+}
+
+export type OrderFilled = {
+  __typename?: 'OrderFilled';
+  id: Scalars['ID']['output'];
+  payment: Scalars['BigInt']['output'];
+  price: Scalars['BigInt']['output'];
+  taker: Account;
+  vaultAddress: Scalars['String']['output'];
+};
+
+export type OrderFilled_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<OrderFilled_Filter>>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_gt?: InputMaybe<Scalars['ID']['input']>;
+  id_gte?: InputMaybe<Scalars['ID']['input']>;
+  id_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id_lt?: InputMaybe<Scalars['ID']['input']>;
+  id_lte?: InputMaybe<Scalars['ID']['input']>;
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<OrderFilled_Filter>>>;
+  payment?: InputMaybe<Scalars['BigInt']['input']>;
+  payment_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  payment_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  payment_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  payment_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  payment_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  payment_not?: InputMaybe<Scalars['BigInt']['input']>;
+  payment_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  price?: InputMaybe<Scalars['BigInt']['input']>;
+  price_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  price_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  price_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  price_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  price_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  price_not?: InputMaybe<Scalars['BigInt']['input']>;
+  price_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  taker?: InputMaybe<Scalars['String']['input']>;
+  taker_?: InputMaybe<Account_Filter>;
+  taker_contains?: InputMaybe<Scalars['String']['input']>;
+  taker_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  taker_ends_with?: InputMaybe<Scalars['String']['input']>;
+  taker_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  taker_gt?: InputMaybe<Scalars['String']['input']>;
+  taker_gte?: InputMaybe<Scalars['String']['input']>;
+  taker_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  taker_lt?: InputMaybe<Scalars['String']['input']>;
+  taker_lte?: InputMaybe<Scalars['String']['input']>;
+  taker_not?: InputMaybe<Scalars['String']['input']>;
+  taker_not_contains?: InputMaybe<Scalars['String']['input']>;
+  taker_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  taker_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  taker_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  taker_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  taker_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  taker_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  taker_starts_with?: InputMaybe<Scalars['String']['input']>;
+  taker_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_contains?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_ends_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_gt?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_gte?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  vaultAddress_lt?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_lte?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_contains?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  vaultAddress_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_starts_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum OrderFilled_OrderBy {
+  Id = 'id',
+  Payment = 'payment',
+  Price = 'price',
+  Taker = 'taker',
+  TakerId = 'taker__id',
+  VaultAddress = 'vaultAddress'
+}
+
+export type OrderPosted = {
+  __typename?: 'OrderPosted';
+  balance: Scalars['BigInt']['output'];
+  dealer: Account;
+  id: Scalars['ID']['output'];
+  price: Scalars['BigInt']['output'];
+  vaultAddress: Scalars['String']['output'];
+};
+
+export type OrderPosted_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<OrderPosted_Filter>>>;
+  balance?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  balance_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_not?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  dealer?: InputMaybe<Scalars['String']['input']>;
+  dealer_?: InputMaybe<Account_Filter>;
+  dealer_contains?: InputMaybe<Scalars['String']['input']>;
+  dealer_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_ends_with?: InputMaybe<Scalars['String']['input']>;
+  dealer_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_gt?: InputMaybe<Scalars['String']['input']>;
+  dealer_gte?: InputMaybe<Scalars['String']['input']>;
+  dealer_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  dealer_lt?: InputMaybe<Scalars['String']['input']>;
+  dealer_lte?: InputMaybe<Scalars['String']['input']>;
+  dealer_not?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_contains?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  dealer_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_starts_with?: InputMaybe<Scalars['String']['input']>;
+  dealer_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_gt?: InputMaybe<Scalars['ID']['input']>;
+  id_gte?: InputMaybe<Scalars['ID']['input']>;
+  id_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id_lt?: InputMaybe<Scalars['ID']['input']>;
+  id_lte?: InputMaybe<Scalars['ID']['input']>;
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<OrderPosted_Filter>>>;
+  price?: InputMaybe<Scalars['BigInt']['input']>;
+  price_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  price_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  price_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  price_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  price_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  price_not?: InputMaybe<Scalars['BigInt']['input']>;
+  price_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  vaultAddress?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_contains?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_ends_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_gt?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_gte?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  vaultAddress_lt?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_lte?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_contains?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  vaultAddress_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_starts_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum OrderPosted_OrderBy {
+  Balance = 'balance',
+  Dealer = 'dealer',
+  DealerId = 'dealer__id',
+  Id = 'id',
+  Price = 'price',
+  VaultAddress = 'vaultAddress'
+}
+
+export enum OrderStatus {
+  Closed = 'Closed',
+  Filled = 'Filled',
+  Pending = 'Pending'
+}
+
+export enum OrderType {
+  BuyBgt = 'BuyBGT',
+  SellBgt = 'SellBGT'
+}
+
+export type Order_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Order_Filter>>>;
+  balance?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  balance_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_not?: InputMaybe<Scalars['BigInt']['input']>;
+  balance_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  dealer?: InputMaybe<Scalars['String']['input']>;
+  dealer_?: InputMaybe<Account_Filter>;
+  dealer_contains?: InputMaybe<Scalars['String']['input']>;
+  dealer_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_ends_with?: InputMaybe<Scalars['String']['input']>;
+  dealer_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_gt?: InputMaybe<Scalars['String']['input']>;
+  dealer_gte?: InputMaybe<Scalars['String']['input']>;
+  dealer_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  dealer_lt?: InputMaybe<Scalars['String']['input']>;
+  dealer_lte?: InputMaybe<Scalars['String']['input']>;
+  dealer_not?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_contains?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  dealer_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  dealer_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  dealer_starts_with?: InputMaybe<Scalars['String']['input']>;
+  dealer_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  height?: InputMaybe<Scalars['BigInt']['input']>;
+  height_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  height_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  height_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  height_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  height_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  height_not?: InputMaybe<Scalars['BigInt']['input']>;
+  height_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  id?: InputMaybe<Scalars['ID']['input']>;
+  id_gt?: InputMaybe<Scalars['ID']['input']>;
+  id_gte?: InputMaybe<Scalars['ID']['input']>;
+  id_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  id_lt?: InputMaybe<Scalars['ID']['input']>;
+  id_lte?: InputMaybe<Scalars['ID']['input']>;
+  id_not?: InputMaybe<Scalars['ID']['input']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']['input']>>;
+  or?: InputMaybe<Array<InputMaybe<Order_Filter>>>;
+  orderType?: InputMaybe<OrderType>;
+  orderType_in?: InputMaybe<Array<OrderType>>;
+  orderType_not?: InputMaybe<OrderType>;
+  orderType_not_in?: InputMaybe<Array<OrderType>>;
+  price?: InputMaybe<Scalars['BigInt']['input']>;
+  price_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  price_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  price_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  price_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  price_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  price_not?: InputMaybe<Scalars['BigInt']['input']>;
+  price_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  spentBalance?: InputMaybe<Scalars['BigInt']['input']>;
+  spentBalance_gt?: InputMaybe<Scalars['BigInt']['input']>;
+  spentBalance_gte?: InputMaybe<Scalars['BigInt']['input']>;
+  spentBalance_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  spentBalance_lt?: InputMaybe<Scalars['BigInt']['input']>;
+  spentBalance_lte?: InputMaybe<Scalars['BigInt']['input']>;
+  spentBalance_not?: InputMaybe<Scalars['BigInt']['input']>;
+  spentBalance_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  status?: InputMaybe<OrderStatus>;
+  status_in?: InputMaybe<Array<OrderStatus>>;
+  status_not?: InputMaybe<OrderStatus>;
+  status_not_in?: InputMaybe<Array<OrderStatus>>;
+  vaultAddress?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_contains?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_ends_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_gt?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_gte?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  vaultAddress_lt?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_lte?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_contains?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  vaultAddress_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_starts_with?: InputMaybe<Scalars['String']['input']>;
+  vaultAddress_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+};
+
+export enum Order_OrderBy {
+  Balance = 'balance',
+  Dealer = 'dealer',
+  DealerId = 'dealer__id',
+  Height = 'height',
+  Id = 'id',
+  OrderType = 'orderType',
+  Price = 'price',
+  SpentBalance = 'spentBalance',
+  Status = 'status',
+  VaultAddress = 'vaultAddress'
 }
 
 export type Participant = {
@@ -7033,6 +7382,12 @@ export type Query = {
   memeRacers: Array<MemeRacer>;
   mint?: Maybe<Mint>;
   mints: Array<Mint>;
+  order?: Maybe<Order>;
+  orderFilled?: Maybe<OrderFilled>;
+  orderFilleds: Array<OrderFilled>;
+  orderPosted?: Maybe<OrderPosted>;
+  orderPosteds: Array<OrderPosted>;
+  orders: Array<Order>;
   participant?: Maybe<Participant>;
   participantTransactionHistories: Array<ParticipantTransactionHistory>;
   participantTransactionHistory?: Maybe<ParticipantTransactionHistory>;
@@ -7486,6 +7841,60 @@ export type QueryMintsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<Mint_Filter>;
+};
+
+
+export type QueryOrderArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryOrderFilledArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryOrderFilledsArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<OrderFilled_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<OrderFilled_Filter>;
+};
+
+
+export type QueryOrderPostedArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryOrderPostedsArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<OrderPosted_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<OrderPosted_Filter>;
+};
+
+
+export type QueryOrdersArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Order_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Order_Filter>;
 };
 
 
@@ -8329,6 +8738,12 @@ export type Subscription = {
   memeRacers: Array<MemeRacer>;
   mint?: Maybe<Mint>;
   mints: Array<Mint>;
+  order?: Maybe<Order>;
+  orderFilled?: Maybe<OrderFilled>;
+  orderFilleds: Array<OrderFilled>;
+  orderPosted?: Maybe<OrderPosted>;
+  orderPosteds: Array<OrderPosted>;
+  orders: Array<Order>;
   participant?: Maybe<Participant>;
   participantTransactionHistories: Array<ParticipantTransactionHistory>;
   participantTransactionHistory?: Maybe<ParticipantTransactionHistory>;
@@ -8782,6 +9197,60 @@ export type SubscriptionMintsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<Mint_Filter>;
+};
+
+
+export type SubscriptionOrderArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionOrderFilledArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionOrderFilledsArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<OrderFilled_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<OrderFilled_Filter>;
+};
+
+
+export type SubscriptionOrderPostedArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID']['input'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionOrderPostedsArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<OrderPosted_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<OrderPosted_Filter>;
+};
+
+
+export type SubscriptionOrdersArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Order_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Order_Filter>;
 };
 
 
@@ -12851,6 +13320,27 @@ export type TransactionFieldFragment = { __typename?: 'Transaction', id: string,
 
 export type TokenFieldFragment = { __typename?: 'Token', id: string, symbol: string, derivedUSD: any };
 
+export type RecentOrdersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RecentOrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, price: any, vaultAddress: string, balance: any, spentBalance: any, height: any, orderType: OrderType, status: OrderStatus, dealer: { __typename?: 'Account', id: string } }> };
+
+export type RecentBuyOrdersQueryVariables = Exact<{
+  status_in?: InputMaybe<Array<OrderStatus> | OrderStatus>;
+}>;
+
+
+export type RecentBuyOrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, price: any, vaultAddress: string, balance: any, spentBalance: any, height: any, orderType: OrderType, status: OrderStatus, dealer: { __typename?: 'Account', id: string } }> };
+
+export type RecentSellOrdersQueryVariables = Exact<{
+  status_in?: InputMaybe<Array<OrderStatus> | OrderStatus>;
+}>;
+
+
+export type RecentSellOrdersQuery = { __typename?: 'Query', orders: Array<{ __typename?: 'Order', id: string, price: any, vaultAddress: string, balance: any, spentBalance: any, height: any, orderType: OrderType, status: OrderStatus, dealer: { __typename?: 'Account', id: string } }> };
+
+export type OrderFieldsFragment = { __typename?: 'Order', id: string, price: any, vaultAddress: string, balance: any, spentBalance: any, height: any, orderType: OrderType, status: OrderStatus, dealer: { __typename?: 'Account', id: string } };
+
 export type EternalFarmingsQueryVariables = Exact<{
   pool?: InputMaybe<Scalars['Bytes']['input']>;
 }>;
@@ -13229,6 +13719,21 @@ export type SingleVaultDetailsQueryVariables = Exact<{
 
 export type SingleVaultDetailsQuery = { __typename?: 'Query', ichiVault?: { __typename?: 'IchiVault', id: string, sender: any, tokenA: any, allowTokenA: boolean, tokenB: any, allowTokenB: boolean, count: any, createdAtTimestamp: any, holdersCount: number, totalShares: any, vaultShares: Array<{ __typename?: 'VaultShare', id: string, vaultShareBalance: any }>, vaultDeposits: Array<{ __typename?: 'VaultDeposit', id: string, createdAtTimestamp: any, amount0: any, amount1: any, shares: any, to: any }>, vaultWithdraws: Array<{ __typename?: 'VaultWithdraw', id: string, createdAtTimestamp: any, amount0: any, amount1: any, shares: any, to: any }>, vaultCollectFees: Array<{ __typename?: 'VaultCollectFee', id: string, createdAtTimestamp: any, feeAmount0: any, feeAmount1: any, sender: any }>, pool: { __typename?: 'Pool', id: string, totalValueLockedUSD: any, token0: { __typename?: 'Token', id: string, symbol: string, name: string, decimals: any }, token1: { __typename?: 'Token', id: string, symbol: string, name: string, decimals: any }, poolDayData: Array<{ __typename?: 'PoolDayData', date: number, volumeUSD: any, feesUSD: any, tvlUSD: any }> } } | null };
 
+export const OrderFieldsFragmentDoc = gql`
+    fragment OrderFields on Order {
+  id
+  dealer {
+    id
+  }
+  price
+  vaultAddress
+  balance
+  spentBalance
+  height
+  orderType
+  status
+}
+    `;
 export const BundleFieldsFragmentDoc = gql`
     fragment BundleFields on Bundle {
   id
@@ -13804,6 +14309,125 @@ export type SingleAccountDetailsQueryHookResult = ReturnType<typeof useSingleAcc
 export type SingleAccountDetailsLazyQueryHookResult = ReturnType<typeof useSingleAccountDetailsLazyQuery>;
 export type SingleAccountDetailsSuspenseQueryHookResult = ReturnType<typeof useSingleAccountDetailsSuspenseQuery>;
 export type SingleAccountDetailsQueryResult = Apollo.QueryResult<SingleAccountDetailsQuery, SingleAccountDetailsQueryVariables>;
+export const RecentOrdersDocument = gql`
+    query RecentOrders {
+  orders {
+    ...OrderFields
+  }
+}
+    ${OrderFieldsFragmentDoc}`;
+
+/**
+ * __useRecentOrdersQuery__
+ *
+ * To run a query within a React component, call `useRecentOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecentOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecentOrdersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRecentOrdersQuery(baseOptions?: Apollo.QueryHookOptions<RecentOrdersQuery, RecentOrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecentOrdersQuery, RecentOrdersQueryVariables>(RecentOrdersDocument, options);
+      }
+export function useRecentOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecentOrdersQuery, RecentOrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecentOrdersQuery, RecentOrdersQueryVariables>(RecentOrdersDocument, options);
+        }
+export function useRecentOrdersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<RecentOrdersQuery, RecentOrdersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<RecentOrdersQuery, RecentOrdersQueryVariables>(RecentOrdersDocument, options);
+        }
+export type RecentOrdersQueryHookResult = ReturnType<typeof useRecentOrdersQuery>;
+export type RecentOrdersLazyQueryHookResult = ReturnType<typeof useRecentOrdersLazyQuery>;
+export type RecentOrdersSuspenseQueryHookResult = ReturnType<typeof useRecentOrdersSuspenseQuery>;
+export type RecentOrdersQueryResult = Apollo.QueryResult<RecentOrdersQuery, RecentOrdersQueryVariables>;
+export const RecentBuyOrdersDocument = gql`
+    query RecentBuyOrders($status_in: [OrderStatus!]) {
+  orders(where: {orderType: BuyBGT, status_in: $status_in}) {
+    ...OrderFields
+  }
+}
+    ${OrderFieldsFragmentDoc}`;
+
+/**
+ * __useRecentBuyOrdersQuery__
+ *
+ * To run a query within a React component, call `useRecentBuyOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecentBuyOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecentBuyOrdersQuery({
+ *   variables: {
+ *      status_in: // value for 'status_in'
+ *   },
+ * });
+ */
+export function useRecentBuyOrdersQuery(baseOptions?: Apollo.QueryHookOptions<RecentBuyOrdersQuery, RecentBuyOrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecentBuyOrdersQuery, RecentBuyOrdersQueryVariables>(RecentBuyOrdersDocument, options);
+      }
+export function useRecentBuyOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecentBuyOrdersQuery, RecentBuyOrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecentBuyOrdersQuery, RecentBuyOrdersQueryVariables>(RecentBuyOrdersDocument, options);
+        }
+export function useRecentBuyOrdersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<RecentBuyOrdersQuery, RecentBuyOrdersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<RecentBuyOrdersQuery, RecentBuyOrdersQueryVariables>(RecentBuyOrdersDocument, options);
+        }
+export type RecentBuyOrdersQueryHookResult = ReturnType<typeof useRecentBuyOrdersQuery>;
+export type RecentBuyOrdersLazyQueryHookResult = ReturnType<typeof useRecentBuyOrdersLazyQuery>;
+export type RecentBuyOrdersSuspenseQueryHookResult = ReturnType<typeof useRecentBuyOrdersSuspenseQuery>;
+export type RecentBuyOrdersQueryResult = Apollo.QueryResult<RecentBuyOrdersQuery, RecentBuyOrdersQueryVariables>;
+export const RecentSellOrdersDocument = gql`
+    query RecentSellOrders($status_in: [OrderStatus!]) {
+  orders(where: {orderType: SellBGT, status_in: $status_in}) {
+    ...OrderFields
+  }
+}
+    ${OrderFieldsFragmentDoc}`;
+
+/**
+ * __useRecentSellOrdersQuery__
+ *
+ * To run a query within a React component, call `useRecentSellOrdersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecentSellOrdersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecentSellOrdersQuery({
+ *   variables: {
+ *      status_in: // value for 'status_in'
+ *   },
+ * });
+ */
+export function useRecentSellOrdersQuery(baseOptions?: Apollo.QueryHookOptions<RecentSellOrdersQuery, RecentSellOrdersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecentSellOrdersQuery, RecentSellOrdersQueryVariables>(RecentSellOrdersDocument, options);
+      }
+export function useRecentSellOrdersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecentSellOrdersQuery, RecentSellOrdersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecentSellOrdersQuery, RecentSellOrdersQueryVariables>(RecentSellOrdersDocument, options);
+        }
+export function useRecentSellOrdersSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<RecentSellOrdersQuery, RecentSellOrdersQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<RecentSellOrdersQuery, RecentSellOrdersQueryVariables>(RecentSellOrdersDocument, options);
+        }
+export type RecentSellOrdersQueryHookResult = ReturnType<typeof useRecentSellOrdersQuery>;
+export type RecentSellOrdersLazyQueryHookResult = ReturnType<typeof useRecentSellOrdersLazyQuery>;
+export type RecentSellOrdersSuspenseQueryHookResult = ReturnType<typeof useRecentSellOrdersSuspenseQuery>;
+export type RecentSellOrdersQueryResult = Apollo.QueryResult<RecentSellOrdersQuery, RecentSellOrdersQueryVariables>;
 export const EternalFarmingsDocument = gql`
     query EternalFarmings($pool: Bytes) {
   eternalFarmings(where: {pool: $pool}) {

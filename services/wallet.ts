@@ -11,6 +11,7 @@ import { StorageState } from "./utils";
 import { MemeFactoryContract } from "@/services/contract/launches/pot2pump/memefactory-contract";
 import { MEMEFacadeContract } from "@/services/contract/launches/pot2pump/memefacade-contract";
 import { ICHIVaultFactoryContract } from "@/services/contract/aquabera/ICHIVaultFactory-contract";
+import { BGTMarketContract } from "./contract/bgt-market/bgt-market";
 
 export class Wallet {
   account: string = "";
@@ -27,6 +28,7 @@ export class Wallet {
     memeFactory: MemeFactoryContract;
     memeFacade: MEMEFacadeContract;
     vaultFactory: ICHIVaultFactoryContract;
+    bgtMarket: BGTMarketContract;
   } = {} as any;
   publicClient!: PublicClient;
   isInit = false;
@@ -94,6 +96,9 @@ export class Wallet {
       }),
       vaultFactory: new ICHIVaultFactoryContract({
         address: this.currentChain.contracts.vaultFactory as Address,
+      }),
+      bgtMarket: new BGTMarketContract({
+        address: this.currentChain.contracts.bgtMarket as Address,
       }),
     };
     this.publicClient = createPublicClientByChain(this.currentChain.chain);

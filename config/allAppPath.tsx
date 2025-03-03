@@ -48,28 +48,8 @@ export const footerData: Record<string, ReactNode> = {
 export const appPathsList: Menu[] = [
   {
     path: "/",
-    title: "Overview",
+    title: "BGT Market",
     routePath: "/",
-  },
-  {
-    path: "/potting",
-    title: "Potting",
-    routePath: "/potting",
-  },
-  {
-    path: "/pumping",
-    title: "Pumping",
-    routePath: "/pumping",
-  },
-  {
-    path: "/leaderboard",
-    title: "Leaderboard",
-    routePath: "/leaderboard",
-  },
-  {
-    title: "Dex",
-    path: "https://wasabee.honeypotfinance.xyz/swap",
-    routePath: "https://wasabee.honeypotfinance.xyz/swap",
   },
 ];
 

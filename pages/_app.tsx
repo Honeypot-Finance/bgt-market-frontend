@@ -22,7 +22,7 @@ import { Inspector, InspectParams } from "react-dev-inspector";
 import { Analytics } from "@vercel/analytics/react";
 // import { capsuleClient, capsuleModalProps } from "@/config/wagmi/capsualWallet";
 import { ApolloProvider } from "@apollo/client";
-import { infoClient } from "@/lib/algebra/graphql/clients";
+import { bgtClient, infoClient } from "@/lib/algebra/graphql/clients";
 import Image from "next/image";
 import SafeProvider from "@safe-global/safe-apps-react-sdk";
 import { berachainNetwork } from "@/services/network";
@@ -103,7 +103,10 @@ export default function App({
   //   );
 
   return (
-    <trpc.Provider client={trpcQueryClient} queryClient={queryClient}>
+    <trpc.Provider
+      client={trpcQueryClient}
+      queryClient={queryClient}
+    >
       <Analytics />
       <QueryClientProvider client={queryClient}>
         <WagmiProvider config={config}>
@@ -115,7 +118,7 @@ export default function App({
               // capsuleIntegratedProps={capsuleModalProps}
             >
               {" "}
-              <ApolloProvider client={infoClient}>
+              <ApolloProvider client={bgtClient}>
                 <NextUIProvider>
                   <Provider>
                     <Inspector
