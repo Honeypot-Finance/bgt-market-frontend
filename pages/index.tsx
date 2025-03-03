@@ -78,7 +78,10 @@ const HomePage: NextLayoutPage = observer(() => {
           </div>
 
           {recentSellOrders?.orders.map((order) => (
-            <div className=" border-2 border-red-500 p-2">
+            <div
+              className=" border-2 border-red-500 p-2"
+              key={order.id}
+            >
               <div>
                 <span>order.id: </span>
                 <span>{order.id}</span>
@@ -161,7 +164,10 @@ const HomePage: NextLayoutPage = observer(() => {
             </Switch>
           </div>
           {recentBuyOrders?.orders.map((order) => (
-            <div className=" border-2 border-red-500 p-2">
+            <div
+              className=" border-2 border-red-500 p-2"
+              key={order.id}
+            >
               <div>
                 <span>order.id: </span>
                 <span>{order.id}</span>
