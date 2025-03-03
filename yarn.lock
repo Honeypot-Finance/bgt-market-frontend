@@ -2881,11 +2881,6 @@
   resolved "https://registry.npmjs.org/@lukeed/ms/-/ms-2.0.2.tgz"
   integrity sha512-9I2Zn6+NJLfaGoz9jN3lpwDgAYvfGeNYdbAIjJOqzs4Tpc+VU3Jqq4IofSUBKajiDS8k9fZIg18/z13mpk1bsA==
 
-"@marigoldlabs/fjord-honeypot-sdk@^0.1.14":
-  version "0.1.14"
-  resolved "https://registry.npmjs.org/@marigoldlabs/fjord-honeypot-sdk/-/fjord-honeypot-sdk-0.1.14.tgz"
-  integrity sha512-UgLkJWgmMIPhti1R2k3EMMPvj/Z8MkEbhzwiGEOXMYt7rRN4I7n5XOKq9v+MjBbIOKGl8wPN420JkUocvV6fDA==
-
 "@metamask/eth-json-rpc-provider@^1.0.0":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@metamask/eth-json-rpc-provider/-/eth-json-rpc-provider-1.0.1.tgz"
